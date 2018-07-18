@@ -5,9 +5,18 @@
  */
 package cs3230_finalproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,9 +25,34 @@ import javafx.fxml.Initializable;
  */
 public class WarDescriptionController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button mainMenuButton;
+    
+    @FXML
+    private Button playButton;
+    
+    @FXML
+    private void handleMainMenuButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene scene = new Scene(screen2Parent);
+        
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void handlePlayButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("warScreen.fxml"));
+        Scene scene = new Scene(screen2Parent);
+        
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
