@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -29,12 +30,13 @@ public class MainApp extends Application {
 	Scene splashScreenScene = new Scene(splashScreenRoot);
 
 	stage.setScene(splashScreenScene);
+	stage.getIcons().add(new Image("file:resources/images/Icon.png"));
 	stage.show();
 
 	Parent mainMenuParent = FXMLLoader.load(getClass().getResource("views/mainMenu.fxml"));
 	Scene scene = new Scene(mainMenuParent);
 
-	PauseTransition splashScreenDisplayDelay = new PauseTransition(Duration.seconds(2));
+	PauseTransition splashScreenDisplayDelay = new PauseTransition(Duration.seconds(3));
 	splashScreenDisplayDelay.setOnFinished(new EventHandler<ActionEvent>() {
 	    @Override
 	    public void handle(ActionEvent event)

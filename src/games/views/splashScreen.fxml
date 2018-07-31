@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Brendan's Awesome Game Program">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
+      <ImageView fitHeight="456.0" fitWidth="638.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <!--<Image url="file:/D:/Dropbox/Documents/College/2nd%20Semester%20(Summer%202018)/Java%20Applications/Homework/CS3230_FinalProject/resources/images/splashScreen.jpg" />-->
+            <Image url="file:/../resources/images/splashScreen.jpg" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="100.0" prefWidth="100.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CARDS">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="AGAINST">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GRADUATION">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets left="15.0" top="100.0" />
+         </padding>
+      </VBox>
    </children>
 </StackPane>
