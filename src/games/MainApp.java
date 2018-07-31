@@ -24,14 +24,14 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception
     {
-	Parent splashScreenRoot = FXMLLoader.load(getClass().getResource("splashScreen.fxml"));
+	Parent splashScreenRoot = FXMLLoader.load(getClass().getResource("views/splashScreen.fxml"));
 
 	Scene splashScreenScene = new Scene(splashScreenRoot);
 
 	stage.setScene(splashScreenScene);
 	stage.show();
 
-	Parent mainMenuParent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+	Parent mainMenuParent = FXMLLoader.load(getClass().getResource("views/mainMenu.fxml"));
 	Scene scene = new Scene(mainMenuParent);
 
 	PauseTransition splashScreenDisplayDelay = new PauseTransition(Duration.seconds(2));
