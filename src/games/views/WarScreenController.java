@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 /**
@@ -26,14 +27,14 @@ import javafx.stage.Stage;
 public class WarScreenController implements Initializable {
 
     @FXML
-    private Button mainMenuButton;
+    private MenuBar menuBar;
     
     @FXML
     private void handleMainMenuButton(ActionEvent event) throws IOException {
         Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         Scene scene = new Scene(screen2Parent);
         
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage)menuBar.getScene().getWindow();
         
         stage.setScene(scene);
         stage.show();

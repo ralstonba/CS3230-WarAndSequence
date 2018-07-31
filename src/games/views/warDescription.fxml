@@ -2,23 +2,19 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.WarDescriptionController">
-   <top>
-      <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#handleMainMenuButton" text="Main Menu" BorderPane.alignment="TOP_LEFT">
-         <BorderPane.margin>
-            <Insets left="5.0" top="5.0" />
-         </BorderPane.margin>
-      </Button>
-   </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="Description:&#10;&#10;&#10;Rules:&#10;&#10;&#10;How to win:">
+            <TextArea editable="false" prefHeight="225.0" prefWidth="200.0" text="Rules:&#10;&#10;The deck is shuffled and dealed between the two players. Each round the players will place the top card from their pile face down onto the play area. With Ace being high, the cards are compared and the cards go to the player with the highest value. If the players cards are the same then three cards are discarded facedown from the top of the deck and then two cards are played face up with the winner taking the entire pile. &#10;&#10;How to play:&#10;&#10;At the beginning of a game click the deck to shuffle and deal the cards. From then on click in the play area to initiate a round." wrapText="true">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
@@ -34,4 +30,15 @@
          </padding>
       </VBox>
    </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleMainMenuButton" text="Main Menu" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>

@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 /**
@@ -24,9 +26,6 @@ import javafx.stage.Stage;
  * @author ralst
  */
 public class WarDescriptionController implements Initializable {
-
-    @FXML
-    private Button mainMenuButton;
     
     @FXML
     private Button playButton;
@@ -36,7 +35,7 @@ public class WarDescriptionController implements Initializable {
         Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         Scene scene = new Scene(screen2Parent);
         
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage)playButton.getScene().getWindow();
         
         stage.setScene(scene);
         stage.show();
