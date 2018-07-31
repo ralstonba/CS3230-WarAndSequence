@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs3230_finalproject;
+package games.views;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,14 +23,30 @@ import javafx.stage.Stage;
  *
  * @author ralst
  */
-public class WarScreenController implements Initializable {
+public class MainMenuController implements Initializable {
 
     @FXML
-    private Button mainMenuButton;
+    private Button warButton;
     
     @FXML
-    private void handleMainMenuButton(ActionEvent event) throws IOException {
-        Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+    private Button sequenceButton;
+    
+    @FXML
+    private void handleWarButton(ActionEvent event) throws IOException {
+        System.out.println("Lets play war!!");
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("warDescription.fxml"));
+        Scene scene = new Scene(screen2Parent);
+        
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void handleSequenceButton(ActionEvent event) throws IOException {
+        System.out.println("Lets play war!!");
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("sequenceDescription.fxml"));
         Scene scene = new Scene(screen2Parent);
         
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -45,8 +59,6 @@ public class WarScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb)
     {
 	// TODO
-    }
-    
-    
+    }    
     
 }

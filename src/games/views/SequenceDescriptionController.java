@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs3230_finalproject;
+package games.views;
 
 import java.net.URL;
 import java.util.ResourceBundle;

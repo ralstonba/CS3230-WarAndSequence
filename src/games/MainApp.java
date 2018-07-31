@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs3230_finalproject;
+package games;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -19,7 +19,7 @@ import javafx.util.Duration;
  *
  * @author ralst
  */
-public class CS3230_FinalProject extends Application {
+public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception

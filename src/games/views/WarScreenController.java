@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs3230_finalproject;
+package games.views;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,28 +23,14 @@ import javafx.stage.Stage;
  *
  * @author ralst
  */
-public class WarDescriptionController implements Initializable {
+public class WarScreenController implements Initializable {
 
     @FXML
     private Button mainMenuButton;
     
     @FXML
-    private Button playButton;
-    
-    @FXML
     private void handleMainMenuButton(ActionEvent event) throws IOException {
         Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        Scene scene = new Scene(screen2Parent);
-        
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    @FXML
-    private void handlePlayButton(ActionEvent event) throws IOException {
-        Parent screen2Parent = FXMLLoader.load(getClass().getResource("warScreen.fxml"));
         Scene scene = new Scene(screen2Parent);
         
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
