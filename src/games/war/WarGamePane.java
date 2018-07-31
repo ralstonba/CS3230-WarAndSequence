@@ -1,6 +1,7 @@
 package games.war;
 
-
+import games.MainApp;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
@@ -9,10 +10,14 @@ import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -30,18 +35,16 @@ public class WarGamePane extends Pane {
     Card p1Card;
     Card p2Card;
     public boolean cardsHaveBeenDealt;
-    int p1HandX = -250;
-    int p2HandX = 250;
+    int p1HandX = -240;
+    int p2HandX = 240;
     int p1PlayedX = 400;
     int p2PlayedX = 250;
 
     public WarGamePane()
     {
 	setPrefSize(640, 480);
-	setStyle("-fx-background-color: rgba(0,100,0,1)");
+	//setStyle("-fx-background-color: rgba(0,100,0,1)");
     }
-    
-    
 
     public void initialize()
     {
@@ -157,11 +160,11 @@ public class WarGamePane extends Pane {
 	{
 	    TranslateTransition moveP1CardTrans = new TranslateTransition(Duration.millis(300), p1Card);
 	    moveP1CardTrans.setFromX(p1HandX - p1Card.getCenterX() + 100);
-	    moveP1CardTrans.setByX(175);
+	    moveP1CardTrans.setByX(165);
 
 	    TranslateTransition moveP2CardTrans = new TranslateTransition(Duration.millis(300), p2Card);
 	    moveP2CardTrans.setFromX(p2HandX + p2Card.getCenterX() - 100);
-	    moveP2CardTrans.setByX(-175);
+	    moveP2CardTrans.setByX(-165);
 
 	    ParallelTransition pt = new ParallelTransition();
 	    pt.getChildren().addAll(moveP1CardTrans, moveP2CardTrans);
@@ -185,11 +188,11 @@ public class WarGamePane extends Pane {
 
 			    TranslateTransition ttP1 = new TranslateTransition(Duration.millis(300), tempP1);
 			    ttP1.setFromX(p1HandX - tempP1.getCenterX());
-			    ttP1.setByX(285);
+			    ttP1.setByX(275);
 
 			    TranslateTransition ttP2 = new TranslateTransition(Duration.millis(300), tempP2);
 			    ttP2.setFromX(p2HandX + p2Card.getCenterX());
-			    ttP2.setByX(-285);
+			    ttP2.setByX(-275);
 
 			    ptDiscard = new ParallelTransition();
 			    ptDiscard.getChildren().addAll(ttP1, ttP2);
@@ -388,7 +391,8 @@ public class WarGamePane extends Pane {
 	} else if ( (player1.getSize() + p1Pile.getSize()) < (player2.getSize() + p2Pile.getSize()) )
 	{
 	    alert.setContentText("Player 2 won the game!");
-	}else{
+	} else
+	{
 	    alert.setContentText("The game ended in a tie!");
 	}
 

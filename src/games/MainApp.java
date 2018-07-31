@@ -46,6 +46,7 @@ public class MainApp extends Application {
 	    }
 	});
 	splashScreenDisplayDelay.play();
+	stage.setResizable(false);
     }
 
     /**
