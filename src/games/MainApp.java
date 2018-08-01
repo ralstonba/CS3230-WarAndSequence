@@ -31,6 +31,7 @@ public class MainApp extends Application {
 
 	stage.setScene(splashScreenScene);
 	stage.getIcons().add(new Image("file:resources/images/Icon.png"));
+	stage.centerOnScreen();
 	stage.show();
 
 	Parent mainMenuParent = FXMLLoader.load(getClass().getResource("views/mainMenu.fxml"));
@@ -43,6 +44,7 @@ public class MainApp extends Application {
 	    {
 		stage.setScene(scene);
 		stage.show();
+		stage.centerOnScreen();
 	    }
 	});
 	splashScreenDisplayDelay.play();

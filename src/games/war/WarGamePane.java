@@ -1,7 +1,5 @@
 package games.war;
 
-import games.MainApp;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
@@ -10,14 +8,9 @@ import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -35,6 +28,7 @@ public class WarGamePane extends Pane {
     Card p1Card;
     Card p2Card;
     public boolean cardsHaveBeenDealt;
+    public boolean inTransition;
     int p1HandX = -240;
     int p2HandX = 240;
     int p1PlayedX = 400;
@@ -55,6 +49,7 @@ public class WarGamePane extends Pane {
 	p2Pile = new Hand("Player 2's Pile");
 	pile = new Hand("Pile");
 	cardsHaveBeenDealt = false;
+	inTransition = false;
 
 	for ( Card card : deck.cards )
 	{
@@ -93,6 +88,8 @@ public class WarGamePane extends Pane {
 	}
 	SequentialTransition s = new SequentialTransition();
 	s.getChildren().addAll(dealTransitions);
+	inTransition = true;
+	s.setOnFinished(e -> inTransition = false);
 	s.play();
 	System.out.println("Player 1's hand is:\n" + player1.toString());
 	System.out.println("Player 2's hand is:\n" + player2.toString());
@@ -147,10 +144,17 @@ public class WarGamePane extends Pane {
 
 	ParallelTransition flipCards = new ParallelTransition();
 	flipCards.getChildren().addAll(ttP1, ttP2);
+	inTransition = true;
 	flipCards.play();
 
 	PauseTransition pt = new PauseTransition(Duration.millis(1000));
-	pt.setOnFinished(e -> compareCards());
+	pt.setOnFinished(e
+		-> 
+		{
+		    inTransition = false;
+		    compareCards();
+
+	});
 	pt.play();
     }
 
@@ -204,9 +208,15 @@ public class WarGamePane extends Pane {
 			    });
 			    stDiscard.getChildren().add(ptDiscard);
 			}
-			stDiscard.setOnFinished(event -> playCards());
+			stDiscard.setOnFinished(event
+				-> 
+				{
+				    inTransition = false;
+				    playCards();
+			});
 			stDiscard.play();
 	    });
+	    inTransition = true;
 	    pt.play();
 	} else if ( p1Card.getRank().ordinal() > p2Card.getRank().ordinal() )
 	{
@@ -298,6 +308,8 @@ public class WarGamePane extends Pane {
 
 	ptMoveCards.getChildren().addAll(moveP1CardTrans, moveP2CardTrans);
 	ptMoveCards.getChildren().addAll(warPileTransitions);
+	inTransition = true;
+	ptMoveCards.setOnFinished(e -> inTransition = false);
 	ptMoveCards.play();
     }
 
@@ -338,8 +350,9 @@ public class WarGamePane extends Pane {
 		    }
 		    movePileTransition.getChildren().add(ttPile);
 		}
-		//movePileTransition.setOnFinished(e -> );
 		playerHand.addPile(playerPile);
+		inTransition = true;
+		movePileTransition.setOnFinished(e -> inTransition = false);
 		movePileTransition.play();
 		return playerHand.play();
 	    }
@@ -377,6 +390,8 @@ public class WarGamePane extends Pane {
 		break;
 	}
 	s.getChildren().addAll(dealTransitions);
+	inTransition = true;
+	s.setOnFinished(e -> inTransition = false);
 	s.play();
     }
 

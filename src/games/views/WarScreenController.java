@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -30,6 +31,8 @@ public class WarScreenController implements Initializable {
     private MenuBar menuBar;
     @FXML
     private StackPane rootLayout;
+    @FXML
+    private Button initButton;
 
     private WarGamePane wgp;
     
@@ -50,6 +53,7 @@ public class WarScreenController implements Initializable {
     @FXML
     private void initGame(ActionEvent event) throws IOException{
 	wgp.initialize();
+	rootLayout.getChildren().remove(initButton);
     }
     
     @FXML
@@ -63,16 +67,20 @@ public class WarScreenController implements Initializable {
 	wgp = new WarGamePane();
 	
 	rootLayout.getChildren().add(wgp);
+	initButton.toFront();
 	
 	    wgp.setOnMouseClicked(e
 		-> 
 		{
-		    if ( !wgp.cardsHaveBeenDealt )
+		    if ( !wgp.inTransition)
 		    {
-			wgp.dealCards();
-		    } else
-		    {
-			wgp.playCards();
+			if ( !wgp.cardsHaveBeenDealt )
+			{
+			    wgp.dealCards();
+			} else
+			{
+			    wgp.playCards();
+			}
 		    }
 	});
     }

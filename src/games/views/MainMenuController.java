@@ -40,6 +40,7 @@ public class MainMenuController implements Initializable {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
         stage.setScene(scene);
+	stage.centerOnScreen();
         stage.show();
     }
     
@@ -52,6 +53,7 @@ public class MainMenuController implements Initializable {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
         stage.setScene(scene);
+	stage.centerOnScreen();
         stage.show();
     }
     

@@ -39,6 +39,7 @@ public class WarDescriptionController implements Initializable {
         
         stage.setScene(scene);
         stage.show();
+	stage.centerOnScreen();
     }
     
     @FXML
@@ -50,6 +51,7 @@ public class WarDescriptionController implements Initializable {
         
         stage.setScene(scene);
         stage.show();
+	stage.centerOnScreen();
     }
     
     @Override
