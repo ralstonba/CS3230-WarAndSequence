@@ -1,17 +1,20 @@
 package games.sequence;
 
 import java.util.Objects;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Card implements Comparable<Card> {
+public class Card extends ImageView implements Comparable<Card> {
 
-    private final Suit suit;
-    private final Rank rank;
-    private boolean faceUp = false;
+    protected final Suit suit;
+    protected final Rank rank;
+    protected boolean faceUp = false;
 
     public Card(Suit suit, Rank rank)
     {
 	this.suit = suit;
 	this.rank = rank;
+	setImage(new Image("file:resources/images/back.bmp"));
     }
 
     public Suit getSuit()
@@ -32,6 +35,13 @@ public class Card implements Comparable<Card> {
     public void setFaceUp(boolean faceUp)
     {
 	this.faceUp = faceUp;
+	if ( faceUp )
+	{
+	    setImage(new Image("file:resources/images/" + suit + String.format("%02d", rank.ordinal() + 2) + ".bmp"));
+	} else
+	{
+	    setImage(new Image("file:resources/images/back.bmp"));
+	}
     }
 
     @Override
@@ -77,5 +87,13 @@ public class Card implements Comparable<Card> {
 	{
 	    return 1;
 	}
+    }
+    
+    public double getCenterX(){
+	return getImage().getWidth()/2;
+    }
+    
+    public double getCenterY(){
+	return getImage().getHeight()/2;
     }
 }
