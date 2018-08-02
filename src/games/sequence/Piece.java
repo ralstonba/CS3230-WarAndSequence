@@ -5,11 +5,13 @@
  */
 package games.sequence;
 
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author ralst
  */
-public class Piece {
+public class Piece extends ImageView{
     private PieceType type;
     private int posX = -1, posY = -1;
     
