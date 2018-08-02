@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -29,21 +30,27 @@ public class SequenceScreenController implements Initializable {
     @FXML
     private MenuBar menuBar;
     @FXML
-    private StackPane rootLayout;  
+    private StackPane rootLayout; 
+    @FXML
+    private Button initButton;
     
     private SequencePane sp;
     
     @FXML
     private void handleMainMenuButton(ActionEvent event) throws IOException
     {
-//	Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-//	Scene scene = new Scene(screen2Parent);
-//
-//	Stage stage = (Stage) menuBar.getScene().getWindow();
-//
-//	stage.setScene(scene);
-//	stage.show();
-	sp.initilize();
+	Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+	Scene scene = new Scene(screen2Parent);
+
+	Stage stage = (Stage) menuBar.getScene().getWindow();
+
+	stage.setScene(scene);
+	stage.show();
+    }
+    
+    @FXML
+    private void initGame(){
+        sp.initilize();
     }
     
     
@@ -52,7 +59,7 @@ public class SequenceScreenController implements Initializable {
     {
 	sp = new SequencePane();
 	rootLayout.getChildren().add(sp);
-	sp.setStyle("-fx-border-color: black");
+        initButton.toFront();
     }   
     
 }

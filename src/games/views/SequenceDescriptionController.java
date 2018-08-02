@@ -52,6 +52,7 @@ public class SequenceDescriptionController implements Initializable {
 	stage.setScene(scene);
 	stage.show();
 	stage.centerOnScreen();
+        //stage.setFullScreen(true);
 	stage.setMaximized(true);
     }
 
