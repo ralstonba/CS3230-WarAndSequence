@@ -30,39 +30,41 @@ public class SequenceScreenController implements Initializable {
     @FXML
     private MenuBar menuBar;
     @FXML
-    private StackPane rootLayout; 
+    private StackPane rootLayout;
     @FXML
     private Button initButton;
-    
+
     private SequencePane sp;
-    
+
     @FXML
-    private void handleMainMenuButton(ActionEvent event) throws IOException
-    {
-	Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-	Scene scene = new Scene(screen2Parent);
+    private void handleMainMenuButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene scene = new Scene(screen2Parent);
 
-	Stage stage = (Stage) menuBar.getScene().getWindow();
+        Stage stage = (Stage) menuBar.getScene().getWindow();
 
-	stage.setScene(scene);
+        stage.setScene(scene);
         stage.centerOnScreen();
-	stage.show();
+        stage.show();
     }
-    
+
     @FXML
-    private void initGame(){
+    private void initGame() {
         rootLayout.getChildren().remove(initButton);
         sp.initilize();
         sp.shuffle();
     }
-    
-    
+
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-	sp = new SequencePane();
-	rootLayout.getChildren().add(sp);
+    public void initialize(URL url, ResourceBundle rb) {
+        sp = new SequencePane();
+
+        rootLayout.getChildren().add(sp);
         initButton.toFront();
-    }   
-    
+
+        sp.setOnMouseClicked(e -> {
+            sp.dealCards();
+        });
+    }
+
 }
