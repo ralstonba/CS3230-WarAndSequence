@@ -45,6 +45,7 @@ public class SequenceScreenController implements Initializable {
 	Stage stage = (Stage) menuBar.getScene().getWindow();
 
 	stage.setScene(scene);
+        stage.centerOnScreen();
 	stage.show();
     }
     
@@ -52,6 +53,7 @@ public class SequenceScreenController implements Initializable {
     private void initGame(){
         rootLayout.getChildren().remove(initButton);
         sp.initilize();
+        sp.shuffle();
     }
     
     
