@@ -12,6 +12,7 @@ public class SequencePane extends StackPane {
     private GridPane boardLayout;
     private Player bluePlayer;
     private Player greenPlayer;
+    private Deck deck;
 
     public void initilize()
     {
