@@ -10,10 +10,14 @@ import javafx.scene.layout.StackPane;
 public class SequencePane extends StackPane {
 
     private GridPane boardLayout;
+    private Player bluePlayer;
+    private Player greenPlayer;
 
     public void initilize()
     {
 	boardLayout = new BoardPane();
+        bluePlayer = new Player(PieceType.BLUE);
+        greenPlayer = new Player(PieceType.GREEN);
 	
 	//boardLayout.relocate(getWidth()/2, getHeight()/2);
 	getChildren().add(boardLayout);

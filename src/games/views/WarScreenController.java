@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -33,55 +34,54 @@ public class WarScreenController implements Initializable {
     private StackPane rootLayout;
     @FXML
     private Button initButton;
+    @FXML
+    private Label player1Label;
+    @FXML
+    private Label player2Label;
 
     private WarGamePane wgp;
-    
-
 
     @FXML
-    private void handleMainMenuButton(ActionEvent event) throws IOException
-    {
-	Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-	Scene scene = new Scene(screen2Parent);
+    private void handleMainMenuButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene scene = new Scene(screen2Parent);
 
-	Stage stage = (Stage) menuBar.getScene().getWindow();
+        Stage stage = (Stage) menuBar.getScene().getWindow();
 
-	stage.setScene(scene);
-	stage.show();
+        stage.setScene(scene);
+        stage.show();
     }
-    
+
     @FXML
-    private void initGame(ActionEvent event) throws IOException{
-	wgp.initialize();
-	rootLayout.getChildren().remove(initButton);
+    private void initGame(ActionEvent event) throws IOException {
+        wgp.initialize();
+        rootLayout.getChildren().remove(initButton);
+
     }
-    
+
     @FXML
-    private void showWinner(ActionEvent event) throws IOException{
-	wgp.displayWinner();
+    private void showWinner(ActionEvent event) throws IOException {
+        wgp.displayWinner();
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-	wgp = new WarGamePane();
-	
-	rootLayout.getChildren().add(wgp);
-	initButton.toFront();
-	
-	    wgp.setOnMouseClicked(e
-		-> 
-		{
-		    if ( !wgp.inTransition)
-		    {
-			if ( !wgp.cardsHaveBeenDealt )
-			{
-			    wgp.dealCards();
-			} else
-			{
-			    wgp.playCards();
-			}
-		    }
-	});
+    public void initialize(URL url, ResourceBundle rb) {
+        wgp = new WarGamePane();
+
+        rootLayout.getChildren().add(wgp);
+        initButton.toFront();
+
+        wgp.setOnMouseClicked(e
+                -> {
+            if (!wgp.inTransition) {
+                if (!wgp.cardsHaveBeenDealt) {
+                    wgp.dealCards();
+                    player1Label.setVisible(true);
+                    player2Label.setVisible(true);
+                } else {
+                    wgp.playCards();
+                }
+            }
+        });
     }
 }

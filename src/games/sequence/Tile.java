@@ -9,8 +9,8 @@ import javafx.scene.layout.StackPane;
  */
 public class Tile extends StackPane {
 
-    Piece piece = null;
-    Card card = null;
+    private Piece piece = null;
+    private Card card = null;
 
     public Tile(Suit suit, Rank rank) {
         card = new Card(suit, rank);
@@ -32,5 +32,9 @@ public class Tile extends StackPane {
     public void removePiece() {
         getChildren().remove(this.piece);
         piece = null;
+    }
+    
+    public boolean hasPiece(){
+        return piece != null;
     }
 }
