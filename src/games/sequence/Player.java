@@ -12,6 +12,7 @@ public class Player {
 
     public Player(PieceType type) {
         piecePile = new Stack<>();
+        playerHand = new Hand();
         for (int i = 0; i < 50; i++) {
             piecePile.add(new Piece(type));
         }

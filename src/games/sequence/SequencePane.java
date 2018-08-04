@@ -7,6 +7,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
@@ -89,40 +90,30 @@ public class SequencePane extends StackPane {
     public void dealCards() {
         player1Hand = new VBox();
         player1Hand.setAlignment(Pos.CENTER_LEFT);
+        player1Hand.setPadding(new Insets(0, 0, 0, 50));
         
         player2Hand = new VBox();
         player2Hand.setAlignment(Pos.CENTER_RIGHT);
+        player2Hand.setPadding(new Insets(0, 50, 0, 0));
         
         getChildren().addAll(player1Hand, player2Hand);
         
         SequentialTransition st = new SequentialTransition();
-//        for (int i = 0; i < 14; i++) {
-//            Card cardToDeal = deck.dealCard();
-//            cardToDeal.setFaceUp(true);
-//            if (i % 2 == 0) {
-//                bluePlayer.addCard(cardToDeal);
-//                //getChildren().remove(cardToDeal);
-//                player1Hand.getChildren().add(cardToDeal);
-//                player1Hand.getChildren().add(new Card(Suit.CLUBS, Rank.JACK));
-//            } else {
-//                greenPlayer.addCard(cardToDeal);
-//                getChildren().remove(cardToDeal);
-//                player2Hand.getChildren().add(cardToDeal);
-//            }
-//            //st.getChildren().add(st)
-//            
-//        }
-        System.out.println(deck.cards.size());
-        Card c = deck.dealCard();
-        c.setFaceUp(true);
-        getChildren().remove(c);
-        c.setRotate(90);
-        player1Hand.getChildren().add(new Group(c));
-        
-        c = deck.dealCard();
-        c.setFaceUp(true);
-        getChildren().remove(c);
-        c.setRotate(90);
-        player1Hand.getChildren().add(c);
+        for (int i = 0; i < 14; i++) {
+            Card cardToDeal = deck.dealCard();
+            cardToDeal.setFaceUp(true);
+            cardToDeal.setRotate(90);
+            if (i % 2 == 0) {
+                bluePlayer.addCard(cardToDeal);
+                getChildren().remove(cardToDeal);
+                player1Hand.getChildren().add(cardToDeal);
+            } else {
+                greenPlayer.addCard(cardToDeal);
+                getChildren().remove(cardToDeal);
+                player2Hand.getChildren().add(cardToDeal);
+            }
+            //st.getChildren().add(st)
+            
+        }
     }
 }
