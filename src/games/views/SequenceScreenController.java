@@ -64,6 +64,7 @@ public class SequenceScreenController implements Initializable {
 
         sp.setOnMouseClicked(e -> {
             sp.dealCards();
+            sp.setOnMouseClicked(null);
         });
     }
 

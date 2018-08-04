@@ -14,6 +14,7 @@ public class Piece extends Circle {
     public Piece(PieceType type) {
         this.type = type;
         
+        setRadius(30);
         setFill(type == PieceType.BLUE ? Color.BLUE : Color.GREEN);
         setStroke(Color.BLACK);
     }
