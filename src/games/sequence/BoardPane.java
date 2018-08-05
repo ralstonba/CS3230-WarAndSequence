@@ -70,6 +70,9 @@ public class BoardPane extends GridPane {
                     System.out.println("Source: " + event.getGestureSource().toString());
                     if (event.getGestureSource().equals(tileCard)) {
                         success = true;
+                        
+                        thisTile.addPiece(p);
+                        
                         System.out.println("Cards matched!");
                     }
                 }

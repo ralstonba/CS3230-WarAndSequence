@@ -161,6 +161,17 @@ public class SequencePane extends BorderPane {
             System.out.println("DragDone on: " + cardToDeal.toString());
             if (event.getTransferMode() == TransferMode.MOVE) {
                 //Card was drop was successful
+                ((VBox)cardToDeal.getParent()).getChildren().remove(cardToDeal);
+                checkBoard();
+                
+                SequentialTransition dealTransition = new SequentialTransition();
+                if (p.getType() == PieceType.BLUE) {
+                    dealTransition.getChildren().add(dealCard(bluePlayer));
+                }else{
+                    dealTransition.getChildren().add(dealCard(greenPlayer));
+                }
+                dealTransition.play();
+                
             }else{
                 cardToDeal.setVisible(true);
             }
@@ -179,6 +190,7 @@ public class SequencePane extends BorderPane {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(350), cardToDeal);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
+        fadeOut.setOnFinished(e -> cardToDeal.setFaceUp(true));
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(200), cardToDeal);
         fadeIn.setFromValue(0);
@@ -203,5 +215,13 @@ public class SequencePane extends BorderPane {
         pt.getChildren().addAll(tt, rt, fadeOut);
         st.getChildren().addAll(pt, fadeIn);
         return st;
+    }
+    
+    private void checkBoard(){
+        //Check board for sequence of 5
+    }
+    
+    private void displayWinner(){
+        //Make alert showing winner
     }
 }

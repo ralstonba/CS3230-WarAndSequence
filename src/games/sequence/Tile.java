@@ -24,9 +24,9 @@ public class Tile extends StackPane {
         this(c.getSuit(), c.getRank());
     }
 
-    public void addPiece(Piece p) {
-        piece = p;
-        getChildren().add(p);
+    public void addPiece(PieceType p) {
+        piece = new Piece(p);
+        getChildren().add(piece);
     }
 
     public void removePiece() {
