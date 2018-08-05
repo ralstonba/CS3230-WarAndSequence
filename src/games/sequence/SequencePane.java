@@ -149,15 +149,21 @@ public class SequencePane extends BorderPane {
 
         cardToDeal.setOnDragDetected((MouseEvent event) -> {
             System.out.println("Drag detected on: " + cardToDeal.toString());
-            Dragboard db = cardToDeal.startDragAndDrop(TransferMode.ANY);
+            Dragboard db = cardToDeal.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.putImage(cardToDeal.getImage());
             db.setContent(content);
+            cardToDeal.setVisible(false);
             event.consume();
         });
         
         cardToDeal.setOnDragDone((DragEvent event) -> {
             System.out.println("DragDone on: " + cardToDeal.toString());
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                //Card was drop was successful
+            }else{
+                cardToDeal.setVisible(true);
+            }
             event.consume();
             //Remove card from hand, place in discard pile
         });

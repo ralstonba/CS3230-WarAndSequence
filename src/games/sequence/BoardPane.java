@@ -48,11 +48,11 @@ public class BoardPane extends GridPane {
         getChildren().forEach(item -> {
             
             item.setOnDragOver((DragEvent event)->{
-                event.acceptTransferModes(TransferMode.ANY);
+                event.acceptTransferModes(TransferMode.MOVE);
             });
 
             item.setOnDragEntered((DragEvent event) -> {
-                if (event.getGestureSource() != item && event.getDragboard().hasString()) {
+                if (event.getGestureSource() != item) {
                     System.out.println("DragEntered on: " + ((Group) item).getChildren().get(0).toString());
                 }
                 event.consume();
@@ -62,13 +62,14 @@ public class BoardPane extends GridPane {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 System.out.println("DragDropped on: " + item.toString());
-                if (db.hasString()) {
+                if (db.hasImage()) {
                     Group thisGroup = ((Group) item);
                     Tile thisTile = (Tile) thisGroup.getChildren().get(0);
                     Card tileCard = thisTile.getCard();
                     System.out.println("Dropped tileCard: " + tileCard.toString());
                     System.out.println("Source: " + event.getGestureSource().toString());
                     if (event.getGestureSource().equals(tileCard)) {
+                        success = true;
                         System.out.println("Cards matched!");
                     }
                 }
