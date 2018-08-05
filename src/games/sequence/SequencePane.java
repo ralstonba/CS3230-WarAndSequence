@@ -204,14 +204,14 @@ public class SequencePane extends BorderPane {
         if (p.getType() == PieceType.BLUE) {
             tt.setToX(BLUE_HAND_X);
             pt.setOnFinished(e -> {
-                getChildren().remove(cardToDeal);
+                //getChildren().remove(cardToDeal);
                 cardToDeal.setTranslateX(0);
                 player1Hand.getChildren().add(cardToDeal);
             });
         } else {
             tt.setToX(GREEN_HAND_X);
             pt.setOnFinished(e -> {
-                getChildren().remove(cardToDeal);
+                //getChildren().remove(cardToDeal);
                 cardToDeal.setTranslateX(0);
                 player2Hand.getChildren().add(cardToDeal);
             });
