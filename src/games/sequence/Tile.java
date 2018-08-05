@@ -29,6 +29,10 @@ public class Tile extends StackPane {
         getChildren().add(piece);
     }
 
+    public Piece getPiece() {
+        return piece;
+    }
+
     public void removePiece() {
         getChildren().remove(this.piece);
         piece = null;

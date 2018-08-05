@@ -9,6 +9,7 @@ import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -33,7 +34,7 @@ public class SequencePane extends BorderPane {
     private final int GREEN_PILE_X = 840;
     private final int PILE_Y = -450;
 
-    private GridPane boardLayout;
+    private static BoardPane boardLayout;
     private Player bluePlayer;
     private Player greenPlayer;
     private Deck deck;
@@ -148,7 +149,7 @@ public class SequencePane extends BorderPane {
         Card cardToDeal = deck.dealCard();
 
         cardToDeal.setOnDragDetected((MouseEvent event) -> {
-            if ((bluePlayerTurn && ((VBox) cardToDeal.getParent()) == player2Hand) || (!bluePlayerTurn && ((VBox)cardToDeal.getParent()) == player1Hand)) {
+            if ((bluePlayerTurn && ((VBox) cardToDeal.getParent()) == player2Hand) || (!bluePlayerTurn && ((VBox) cardToDeal.getParent()) == player1Hand)) {
                 return;
             }
 
@@ -167,7 +168,6 @@ public class SequencePane extends BorderPane {
                 //Card was drop was successful
                 ((VBox) cardToDeal.getParent()).getChildren().remove(cardToDeal);
                 bluePlayerTurn = !bluePlayerTurn;
-                checkBoard();
 
                 SequentialTransition dealTransition = new SequentialTransition();
                 if (p.getType() == PieceType.BLUE) {
@@ -181,7 +181,6 @@ public class SequencePane extends BorderPane {
                 cardToDeal.setVisible(true);
             }
             event.consume();
-            //Remove card from hand, place in discard pile
         });
 
         SequentialTransition st = new SequentialTransition();
@@ -222,8 +221,14 @@ public class SequencePane extends BorderPane {
         return st;
     }
 
-    private void checkBoard() {
-        //Check board for sequence of 5
+    public static void checkBoard(Node n) {
+        Integer row = BoardPane.getRowIndex(n);
+        Integer col = BoardPane.getColumnIndex(n);
+
+        int rowIndex = row == null ? 0 : row.intValue();
+        int colIndex = col == null ? 0 : col.intValue();
+        
+        boolean rowWin = checkRow(row);
     }
 
     private void displayWinner() {
@@ -232,5 +237,29 @@ public class SequencePane extends BorderPane {
 
     public static boolean isBluesTurn() {
         return bluePlayerTurn;
+    }
+
+    private static boolean checkRow(int r) {
+        int cnt = 0;
+        for (int i = 0; i < 10; i++) {
+            System.out.println(cnt);
+            
+            PieceType thisPiece = boardLayout.getTile(r, i).getPiece().getType();
+            
+            if (bluePlayerTurn) {
+                if (thisPiece.equals(PieceType.GREEN)) {
+                    cnt++;
+                }else{
+                    cnt = 0;
+                }
+            }else{
+                if (thisPiece.equals(PieceType.BLUE)) {
+                    cnt++;
+                }else{
+                    cnt = 0;
+                }
+            }
+        }
+        return cnt >= 5;
     }
 }

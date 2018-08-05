@@ -3,11 +3,11 @@ package games.sequence;
 import java.util.Stack;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 
 /**
  *
@@ -66,19 +66,43 @@ public class BoardPane extends GridPane {
                     Group thisGroup = ((Group) item);
                     Tile thisTile = (Tile) thisGroup.getChildren().get(0);
                     Card tileCard = thisTile.getCard();
+                    Card sourceCard = (Card) event.getGestureSource();
                     System.out.println("Dropped tileCard: " + tileCard.toString());
                     System.out.println("Source: " + event.getGestureSource().toString());
-                    if (event.getGestureSource().equals(tileCard)) {
-                        success = true;
+                    if (sourceCard.equals(tileCard)) {
+                        if (!thisTile.hasPiece()) {
+                            success = true;
 
-                        thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+                            thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+                            //SequencePane.checkBoard(item);
 
-                        System.out.println("Cards matched!");
+                            System.out.println("Cards matched!");
+                        }
+                    } else if (sourceCard.getRank() == Rank.JACK) {
+                        if (sourceCard.getSuit() == Suit.SPADES || sourceCard.getSuit() == Suit.CLUBS) {
+                            success = true;
+                            thisTile.removePiece();
+                        } else {
+                            if (!thisTile.hasPiece()) {
+                                success = true;
+                                thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+                                //SequencePane.checkBoard(item);
+                            }
+                        }
                     }
                 }
                 event.setDropCompleted(success);
                 event.consume();
             });
         });
+    }
+
+    public Tile getTile(int r, int c) {
+        for (Node n : getChildren()) {
+            if (GridPane.getColumnIndex(n) == c && GridPane.getRowIndex(n) == r) {
+                return (Tile) ((Group) n).getChildren().get(0);
+            }
+        }
+        return null;
     }
 }
