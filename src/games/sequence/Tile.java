@@ -37,4 +37,13 @@ public class Tile extends StackPane {
     public boolean hasPiece(){
         return piece != null;
     }
+    
+    public Card getCard(){
+        return this.card;
+    }
+
+    @Override
+    public String toString() {
+        return "Tile{" + "piece=" + piece + ", card=" + card.toString() + '}';
+    }
 }

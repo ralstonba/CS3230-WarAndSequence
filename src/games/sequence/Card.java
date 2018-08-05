@@ -47,7 +47,7 @@ public class Card extends ImageView implements Comparable<Card> {
     @Override
     public String toString()
     {
-	return rank + " of " + suit + (faceUp ? " fu" : " fd"); //To change body of generated methods, choose Tools | Templates.
+	return rank + " of " + suit; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
