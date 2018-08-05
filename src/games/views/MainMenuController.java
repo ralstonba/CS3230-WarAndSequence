@@ -33,7 +33,6 @@ public class MainMenuController implements Initializable {
     
     @FXML
     private void handleWarButton(ActionEvent event) throws IOException {
-        System.out.println("Lets play war!!");
         Parent screen2Parent = FXMLLoader.load(getClass().getResource("warDescription.fxml"));
         Scene scene = new Scene(screen2Parent);
         
@@ -46,7 +45,6 @@ public class MainMenuController implements Initializable {
     
     @FXML
     private void handleSequenceButton(ActionEvent event) throws IOException {
-        System.out.println("Lets play war!!");
         Parent screen2Parent = FXMLLoader.load(getClass().getResource("sequenceDescription.fxml"));
         Scene scene = new Scene(screen2Parent);
         
