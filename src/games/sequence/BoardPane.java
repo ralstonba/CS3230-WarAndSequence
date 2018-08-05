@@ -46,8 +46,8 @@ public class BoardPane extends GridPane {
         setVgap(5);
 
         getChildren().forEach(item -> {
-            
-            item.setOnDragOver((DragEvent event)->{
+
+            item.setOnDragOver((DragEvent event) -> {
                 event.acceptTransferModes(TransferMode.MOVE);
             });
 
@@ -70,9 +70,9 @@ public class BoardPane extends GridPane {
                     System.out.println("Source: " + event.getGestureSource().toString());
                     if (event.getGestureSource().equals(tileCard)) {
                         success = true;
-                        
-                        thisTile.addPiece(p);
-                        
+
+                        thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+
                         System.out.println("Cards matched!");
                     }
                 }

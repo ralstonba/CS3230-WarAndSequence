@@ -37,7 +37,7 @@ public class SequencePane extends BorderPane {
     private Player bluePlayer;
     private Player greenPlayer;
     private Deck deck;
-    private boolean bluePlayerTurn;
+    private static boolean bluePlayerTurn = true;
     private VBox player1Hand;
     private VBox player2Hand;
 
@@ -148,6 +148,10 @@ public class SequencePane extends BorderPane {
         Card cardToDeal = deck.dealCard();
 
         cardToDeal.setOnDragDetected((MouseEvent event) -> {
+            if ((bluePlayerTurn && ((VBox) cardToDeal.getParent()) == player2Hand) || (!bluePlayerTurn && ((VBox)cardToDeal.getParent()) == player1Hand)) {
+                return;
+            }
+
             System.out.println("Drag detected on: " + cardToDeal.toString());
             Dragboard db = cardToDeal.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
@@ -156,23 +160,24 @@ public class SequencePane extends BorderPane {
             cardToDeal.setVisible(false);
             event.consume();
         });
-        
+
         cardToDeal.setOnDragDone((DragEvent event) -> {
             System.out.println("DragDone on: " + cardToDeal.toString());
             if (event.getTransferMode() == TransferMode.MOVE) {
                 //Card was drop was successful
-                ((VBox)cardToDeal.getParent()).getChildren().remove(cardToDeal);
+                ((VBox) cardToDeal.getParent()).getChildren().remove(cardToDeal);
+                bluePlayerTurn = !bluePlayerTurn;
                 checkBoard();
-                
+
                 SequentialTransition dealTransition = new SequentialTransition();
                 if (p.getType() == PieceType.BLUE) {
                     dealTransition.getChildren().add(dealCard(bluePlayer));
-                }else{
+                } else {
                     dealTransition.getChildren().add(dealCard(greenPlayer));
                 }
                 dealTransition.play();
-                
-            }else{
+
+            } else {
                 cardToDeal.setVisible(true);
             }
             event.consume();
@@ -216,12 +221,16 @@ public class SequencePane extends BorderPane {
         st.getChildren().addAll(pt, fadeIn);
         return st;
     }
-    
-    private void checkBoard(){
+
+    private void checkBoard() {
         //Check board for sequence of 5
     }
-    
-    private void displayWinner(){
+
+    private void displayWinner() {
         //Make alert showing winner
+    }
+
+    public static boolean isBluesTurn() {
+        return bluePlayerTurn;
     }
 }
