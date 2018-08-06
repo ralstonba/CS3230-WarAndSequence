@@ -1,5 +1,6 @@
 package games.sequence;
 
+import java.util.Optional;
 import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -10,6 +11,8 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -34,7 +37,7 @@ public class SequencePane extends BorderPane {
     private final int GREEN_PILE_X = 840;
     private final int PILE_Y = -450;
 
-    private static BoardPane boardLayout;
+    private BoardPane boardLayout;
     private Player bluePlayer;
     private Player greenPlayer;
     private Deck deck;
@@ -44,6 +47,7 @@ public class SequencePane extends BorderPane {
 
     public void initilize() {
         boardLayout = new BoardPane();
+        boardLayout.setSequencePane(this);
         bluePlayer = new Player(PieceType.BLUE);
         greenPlayer = new Player(PieceType.GREEN);
         deck = new Deck();
@@ -168,7 +172,7 @@ public class SequencePane extends BorderPane {
                 //Card was drop was successful
                 ((VBox) cardToDeal.getParent()).getChildren().remove(cardToDeal);
                 bluePlayerTurn = !bluePlayerTurn;
-
+                
                 SequentialTransition dealTransition = new SequentialTransition();
                 if (p.getType() == PieceType.BLUE) {
                     dealTransition.getChildren().add(dealCard(bluePlayer));
@@ -221,7 +225,7 @@ public class SequencePane extends BorderPane {
         return st;
     }
 
-    public static void checkBoard(Node n) {
+    public void checkBoard(Node n) {
         Integer row = BoardPane.getRowIndex(n);
         Integer col = BoardPane.getColumnIndex(n);
 
@@ -229,36 +233,76 @@ public class SequencePane extends BorderPane {
         int colIndex = col == null ? 0 : col.intValue();
         
         boolean rowWin = checkRow(row);
+        if (rowWin) {
+            displayWinner();
+        }
     }
 
     private void displayWinner() {
-        //Make alert showing winner
+        Alert alert = new Alert(Alert.AlertType.NONE);
+	alert.setTitle("Game Over!");
+	alert.setHeaderText(null);
+//	if ( (player1.getSize() + p1Pile.getSize()) > (player2.getSize() + p2Pile.getSize()) )
+//	{
+//	    alert.setContentText("Player 1 won the game!");
+//	} else if ( (player1.getSize() + p1Pile.getSize()) < (player2.getSize() + p2Pile.getSize()) )
+//	{
+//	    alert.setContentText("Player 2 won the game!");
+//	} else
+//	{
+//	    alert.setContentText("The game ended in a tie!");
+//	}
+
+	ButtonType playAgainButton = new ButtonType("Play again?");
+
+	alert.getButtonTypes().setAll(playAgainButton);
+
+	Optional<ButtonType> result = alert.showAndWait();
+
+	if ( result.get() == playAgainButton )
+	{
+	    getChildren().clear();
+	    //this.initialize();
+	}
     }
 
-    public static boolean isBluesTurn() {
+    public boolean isBluesTurn() {
         return bluePlayerTurn;
     }
 
-    private static boolean checkRow(int r) {
+    private boolean checkRow(int r) {
         int cnt = 0;
         for (int i = 0; i < 10; i++) {
-            System.out.println(cnt);
             
-            PieceType thisPiece = boardLayout.getTile(r, i).getPiece().getType();
+            Tile thisTile = boardLayout.getTile(r, i);
             
-            if (bluePlayerTurn) {
-                if (thisPiece.equals(PieceType.GREEN)) {
+            if (!thisTile.hasPiece()) {
+                cnt = 0;
+                continue;
+            }
+            
+            Piece thisPiece = thisTile.getPiece();
+            PieceType thisType = thisPiece.getType();
+            //PieceType thisPiece = boardLayout.getTile(r, i).getPiece().getType();
+            
+            if (!bluePlayerTurn) {
+                if (thisType.equals(PieceType.GREEN)) {
                     cnt++;
                 }else{
                     cnt = 0;
                 }
             }else{
-                if (thisPiece.equals(PieceType.BLUE)) {
+                if (thisType.equals(PieceType.BLUE)) {
                     cnt++;
                 }else{
                     cnt = 0;
                 }
             }
+            
+            if (cnt == 5) {
+                break;
+            }
+            System.out.println(cnt);
         }
         return cnt >= 5;
     }

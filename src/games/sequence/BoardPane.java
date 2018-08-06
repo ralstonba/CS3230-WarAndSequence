@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
  */
 public class BoardPane extends GridPane {
 
+    private SequencePane sp;
     Stack<Card> boardCards = new Stack<>();
 
     public BoardPane() {
@@ -73,21 +74,21 @@ public class BoardPane extends GridPane {
                         if (!thisTile.hasPiece()) {
                             success = true;
 
-                            thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
-                            //SequencePane.checkBoard(item);
+                            thisTile.addPiece(sp.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+                            sp.checkBoard(item);
 
                             System.out.println("Cards matched!");
                         }
                     } else if (sourceCard.getRank() == Rank.JACK) {
                         if (sourceCard.getSuit() == Suit.SPADES || sourceCard.getSuit() == Suit.CLUBS) {
-                            if ((SequencePane.isBluesTurn() && thisTile.getPiece().getType() == PieceType.GREEN) || (!SequencePane.isBluesTurn() && thisTile.getPiece().getType() == PieceType.BLUE)) {
+                            if ((sp.isBluesTurn() && thisTile.getPiece().getType() == PieceType.GREEN) || (!sp.isBluesTurn() && thisTile.getPiece().getType() == PieceType.BLUE)) {
                                 success = true;
                                 thisTile.removePiece();
                             }
                         } else {
                             if (!thisTile.hasPiece()) {
                                 success = true;
-                                thisTile.addPiece(SequencePane.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
+                                thisTile.addPiece(sp.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
                                 //SequencePane.checkBoard(item);
                             }
                         }
@@ -97,6 +98,10 @@ public class BoardPane extends GridPane {
                 event.consume();
             });
         });
+    }
+    
+    public void setSequencePane(SequencePane sp){
+        this.sp = sp;
     }
 
     public Tile getTile(int r, int c) {
