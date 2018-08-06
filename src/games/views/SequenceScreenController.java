@@ -51,7 +51,7 @@ public class SequenceScreenController implements Initializable {
     @FXML
     private void initGame() {
         rootLayout.getChildren().remove(initButton);
-        sp.initilize();
+        sp.initialize();
         sp.shuffle();
     }
 

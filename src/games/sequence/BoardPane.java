@@ -35,6 +35,7 @@ public class BoardPane extends GridPane {
                 Tile tile;
                 if ((i == 0 && j == 0) || (i == 9 && j == 0) || (i == 0 && j == 9) || (i == 9 && j == 9)) {
                     tile = new Tile(Suit.WILD, Rank.WILD);
+                    tile.addPiece(PieceType.BOTH);
                 } else {
                     Card cardToAdd = boardCards.pop();
                     tile = new Tile(cardToAdd);

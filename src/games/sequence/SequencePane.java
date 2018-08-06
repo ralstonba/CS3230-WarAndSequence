@@ -45,7 +45,7 @@ public class SequencePane extends BorderPane {
     private VBox player1Hand;
     private VBox player2Hand;
 
-    public void initilize() {
+    public void initialize() {
         boardLayout = new BoardPane();
         boardLayout.setSequencePane(this);
         bluePlayer = new Player(PieceType.BLUE);
@@ -172,7 +172,7 @@ public class SequencePane extends BorderPane {
                 //Card was drop was successful
                 ((VBox) cardToDeal.getParent()).getChildren().remove(cardToDeal);
                 bluePlayerTurn = !bluePlayerTurn;
-                
+
                 SequentialTransition dealTransition = new SequentialTransition();
                 if (p.getType() == PieceType.BLUE) {
                     dealTransition.getChildren().add(dealCard(bluePlayer));
@@ -231,39 +231,33 @@ public class SequencePane extends BorderPane {
 
         int rowIndex = row == null ? 0 : row.intValue();
         int colIndex = col == null ? 0 : col.intValue();
-        
-        boolean rowWin = checkRow(row);
-        if (rowWin) {
+
+        if (checkRow(row) || checkCol(col)) {
             displayWinner();
         }
     }
 
     private void displayWinner() {
         Alert alert = new Alert(Alert.AlertType.NONE);
-	alert.setTitle("Game Over!");
-	alert.setHeaderText(null);
-//	if ( (player1.getSize() + p1Pile.getSize()) > (player2.getSize() + p2Pile.getSize()) )
-//	{
-//	    alert.setContentText("Player 1 won the game!");
-//	} else if ( (player1.getSize() + p1Pile.getSize()) < (player2.getSize() + p2Pile.getSize()) )
-//	{
-//	    alert.setContentText("Player 2 won the game!");
-//	} else
-//	{
-//	    alert.setContentText("The game ended in a tie!");
-//	}
+        alert.setTitle("Game Over!");
+        alert.setHeaderText(null);
 
-	ButtonType playAgainButton = new ButtonType("Play again?");
+        if (bluePlayerTurn) {
+            alert.setContentText("Green won the game!");
+        } else {
+            alert.setContentText("Blue won the game!");
+        }
 
-	alert.getButtonTypes().setAll(playAgainButton);
+        ButtonType playAgainButton = new ButtonType("Play again?");
 
-	Optional<ButtonType> result = alert.showAndWait();
+        alert.getButtonTypes().setAll(playAgainButton);
 
-	if ( result.get() == playAgainButton )
-	{
-	    getChildren().clear();
-	    //this.initialize();
-	}
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == playAgainButton) {
+            getChildren().clear();
+            this.initialize();
+        }
     }
 
     public boolean isBluesTurn() {
@@ -272,37 +266,70 @@ public class SequencePane extends BorderPane {
 
     private boolean checkRow(int r) {
         int cnt = 0;
+
         for (int i = 0; i < 10; i++) {
-            
+
             Tile thisTile = boardLayout.getTile(r, i);
-            
+
             if (!thisTile.hasPiece()) {
                 cnt = 0;
                 continue;
             }
-            
-            Piece thisPiece = thisTile.getPiece();
-            PieceType thisType = thisPiece.getType();
-            //PieceType thisPiece = boardLayout.getTile(r, i).getPiece().getType();
-            
+
+            PieceType thisType = (thisTile.getPiece()).getType();
+
             if (!bluePlayerTurn) {
-                if (thisType.equals(PieceType.GREEN)) {
+                if (thisType.equals(PieceType.GREEN) || thisType.equals(PieceType.BOTH)) {
                     cnt++;
-                }else{
+                } else {
                     cnt = 0;
                 }
-            }else{
-                if (thisType.equals(PieceType.BLUE)) {
+            } else {
+                if (thisType.equals(PieceType.BLUE) || thisType.equals(PieceType.BOTH)) {
                     cnt++;
-                }else{
+                } else {
                     cnt = 0;
                 }
             }
-            
+
             if (cnt == 5) {
                 break;
             }
-            System.out.println(cnt);
+        }
+        return cnt >= 5;
+    }
+
+    private boolean checkCol(int c) {
+        int cnt = 0;
+
+        for (int i = 0; i < 10; i++) {
+
+            Tile thisTile = boardLayout.getTile(i, c);
+
+            if (!thisTile.hasPiece()) {
+                cnt = 0;
+                continue;
+            }
+
+            PieceType thisType = (thisTile.getPiece()).getType();
+
+            if (!bluePlayerTurn) {
+                if (thisType.equals(PieceType.GREEN) || thisType.equals(PieceType.BOTH)) {
+                    cnt++;
+                } else {
+                    cnt = 0;
+                }
+            } else {
+                if (thisType.equals(PieceType.BLUE) || thisType.equals(PieceType.BOTH)) {
+                    cnt++;
+                } else {
+                    cnt = 0;
+                }
+            }
+
+            if (cnt == 5) {
+                break;
+            }
         }
         return cnt >= 5;
     }

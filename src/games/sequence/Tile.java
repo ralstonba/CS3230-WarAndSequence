@@ -17,7 +17,6 @@ public class Tile extends StackPane {
         card.setFaceUp(true);
         setRotate(90);
         getChildren().add(card);
-        //setOnMouseEntered(e->System.out.println("Mouse over: " + toString()));
     }
 
     public Tile(Card c) {
