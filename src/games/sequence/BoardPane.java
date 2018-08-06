@@ -80,8 +80,10 @@ public class BoardPane extends GridPane {
                         }
                     } else if (sourceCard.getRank() == Rank.JACK) {
                         if (sourceCard.getSuit() == Suit.SPADES || sourceCard.getSuit() == Suit.CLUBS) {
-                            success = true;
-                            thisTile.removePiece();
+                            if ((SequencePane.isBluesTurn() && thisTile.getPiece().getType() == PieceType.GREEN) || (!SequencePane.isBluesTurn() && thisTile.getPiece().getType() == PieceType.BLUE)) {
+                                success = true;
+                                thisTile.removePiece();
+                            }
                         } else {
                             if (!thisTile.hasPiece()) {
                                 success = true;
