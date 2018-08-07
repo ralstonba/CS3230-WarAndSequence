@@ -10,7 +10,7 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.SequenceScreenController">
    <center>
-      <StackPane fx:id="rootLayout" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <StackPane fx:id="rootLayout" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(to right, blue 0%,white 13%,white 87%,green 100%);" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="initButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initGame" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: rgb(0,0,0,0);" text="CLICK TO BEGIN!" textFill="WHITE">
                <font>

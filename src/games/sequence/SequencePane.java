@@ -46,7 +46,7 @@ public class SequencePane extends BorderPane {
     private Player bluePlayer;
     private Player greenPlayer;
     private Deck deck;
-    private static boolean bluePlayerTurn = true;
+    private boolean bluePlayerTurn = true;
     private VBox player1Hand;
     private VBox player2Hand;
 
@@ -61,6 +61,8 @@ public class SequencePane extends BorderPane {
             getChildren().add(c);
             moveCard(c, getWidth() / 2, getHeight() / 2);
         }
+        
+        shuffle();
     }
 
     private void moveCard(Card c, double x, double y) {
@@ -124,6 +126,7 @@ public class SequencePane extends BorderPane {
             st.setOnFinished(event -> {
                 showBoard();
                 boardLayout.toBack();
+                dealCards();
             });
         });
         pt.play();

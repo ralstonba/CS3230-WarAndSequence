@@ -87,7 +87,6 @@ public class SequenceScreenController implements Initializable {
     private void initGame() {
         rootLayout.getChildren().remove(initButton);
         sp.initialize();
-        sp.shuffle();
     }
 
     @Override
@@ -97,10 +96,10 @@ public class SequenceScreenController implements Initializable {
         rootLayout.getChildren().add(sp);
         initButton.toFront();
 
-        sp.setOnMouseClicked(e -> {
-            sp.dealCards();
-            sp.setOnMouseClicked(null);
-        });
+//        sp.setOnMouseClicked(e -> {
+//            sp.dealCards();
+//            sp.setOnMouseClicked(null);
+//        });
     }
 
 }
