@@ -15,8 +15,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -46,6 +49,38 @@ public class SequenceScreenController implements Initializable {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    @FXML
+    private void handleInstructions(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("War Instructions");
+        alert.setHeaderText(null);
+
+        alert.getButtonTypes().setAll(ButtonType.OK);
+
+        TextArea ta = new TextArea();
+        ta.setText("Object of the Game:\n"
+                + "\n"
+                + "The first player to make a connected series of five pieces in their color in a straight line wins.\n"
+                + "\n"
+                + "Directions:\n"
+                + "\n"
+                + "With Blue starting, each turn a player will select a card from their hand corresponding to an open space on the board. The card will be discarded and a piece of their color will be added to that place. They will draw a new card to replace the played card. The game ends when a player creates a string of five pieces in any direction in a line.\n"
+                + "\n"
+                + "Red jacks are wild, they can be used to play on any open tile. Black jacks allow you to remove an opponents token. The four corner tiles are considered wild and count for either player towards their line of 5.\n"
+                + "\n"
+                + "How to play:\n"
+                + "\n"
+                + "At the beginning of a game click the deck to shuffle and deal the cards. To play a card drag it from the players hand to the tile you wish to place a token on.");
+        ta.setEditable(false);
+        ta.setWrapText(true);
+        ta.setMaxWidth(Double.MAX_VALUE);
+        ta.setMaxHeight(Double.MAX_VALUE);
+
+        alert.getDialogPane().setContent(ta);
+
+        alert.showAndWait();
     }
 
     @FXML
