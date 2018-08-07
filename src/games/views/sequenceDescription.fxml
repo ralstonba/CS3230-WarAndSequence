@@ -5,20 +5,24 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.SequenceDescriptionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.SequenceDescriptionController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <TextArea editable="false" prefHeight="225.0" prefWidth="200.0" text="Rules:&#10;&#10;The deck is shuffled and dealed between the two players. Each round the players will place the top card from their pile face down onto the play area. With Ace being high, the cards are compared and the cards go to the player with the highest value. If the players cards are the same then three cards are discarded facedown from the top of the deck and then two cards are played face up with the winner taking the entire pile. &#10;&#10;How to play:&#10;&#10;At the beginning of a game click the deck to shuffle and deal the cards. From then on click in the play area to initiate a round." wrapText="true">
+            <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
-            </TextArea>
+               <content>
+                  <TextArea editable="false" text="Object of the Game:&#10;&#10;The first player to make a connected series of five pieces in their color in a straight line wins.&#10;&#10;Directions:&#10;&#10;With Blue starting, each turn a player will select a card from their hand corresponding to an open space on the board. The card will be discarded and a piece of their color will be added to that place. They will draw a new card to replace the played card. The game ends when a player creates a string of five pieces in any direction in a line.&#10;&#10;Red jacks are wild, they can be used to play on any open tile. Black jacks allow you to remove an opponents token. The four corner tiles are considered wild and count for either player towards their line of 5.&#10;&#10;How to play:&#10;&#10;At the beginning of a game click the deck to shuffle and deal the cards. To play a card drag it from the players hand to the tile you wish to place a token on." wrapText="true" />
+               </content>
+            </ScrollPane>
             <Button fx:id="playButton" alignment="CENTER" mnemonicParsing="false" onAction="#handlePlayButton" text="PLAY!">
                <font>
                   <Font size="36.0" />
