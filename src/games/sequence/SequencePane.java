@@ -1,7 +1,11 @@
 package games.sequence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -9,6 +13,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -228,13 +233,66 @@ public class SequencePane extends BorderPane {
     public void checkBoard(Node n) {
         Integer row = BoardPane.getRowIndex(n);
         Integer col = BoardPane.getColumnIndex(n);
+        Predicate<Point2D> boardFilterPredicate = p -> p.getX() > -1 && p.getX() < 10 && p.getY() > -1 && p.getY() < 10;
 
-        int rowIndex = row == null ? 0 : row.intValue();
-        int colIndex = col == null ? 0 : col.intValue();
+        List<Point2D> vert = IntStream.rangeClosed(row - 4, row + 4)
+                .mapToObj(r -> new Point2D(col, r))
+                .filter(boardFilterPredicate)
+                .collect(Collectors.toList());
+        List<Point2D> horz = IntStream.rangeClosed(col - 4, col + 4)
+                .mapToObj(c -> new Point2D(c, row))
+                .filter(boardFilterPredicate)
+                .collect(Collectors.toList());
+        Point2D topLeft = new Point2D(col - 4, row - 4);
+        List<Point2D> diagDsc = IntStream.rangeClosed(0, 8)
+                .mapToObj(i -> topLeft.add(i, i))
+                .filter(boardFilterPredicate)
+                .collect(Collectors.toList());
+        Point2D botLeft = new Point2D(col - 4, row + 4);
+        List<Point2D> diagAsc = IntStream.rangeClosed(0, 8)
+                .mapToObj(i -> botLeft.add(i, -i))
+                .filter(boardFilterPredicate)
+                .collect(Collectors.toList());
 
-        if (checkRow(row) || checkCol(col)) {
+        if (checkRange(horz) || checkRange(vert) || checkRange(diagAsc) || checkRange(diagDsc)) {
             displayWinner();
         }
+    }
+
+    private boolean checkRange(List<Point2D> points) {
+        int chain = 0;
+
+        for (Point2D p : points) {
+            int col = (int) p.getX();
+            int row = (int) p.getY();
+
+            if (col < 0 || col > 9 || row < 0 || row > 9) {
+                continue;
+            }
+
+            Tile thisTile = boardLayout.getTile(row, col);
+
+            if (thisTile.hasPiece()) {
+                PieceType thisType = thisTile.getPiece().getType();
+                if (!bluePlayerTurn && (thisType.equals(PieceType.GREEN) || thisType.equals(PieceType.BOTH))) {
+                    chain++;
+                    if (chain == 5) {
+                        return true;
+                    }
+                } else if (bluePlayerTurn && (thisType.equals(PieceType.BLUE) || thisType.equals(PieceType.BOTH))) {
+                    chain++;
+                    if (chain == 5) {
+                        return true;
+                    }
+                } else {
+                    chain = 0;
+                }
+            } else {
+                chain = 0;
+            }
+        }
+
+        return false;
     }
 
     private void displayWinner() {
@@ -242,7 +300,7 @@ public class SequencePane extends BorderPane {
         alert.setTitle("Game Over!");
         alert.setHeaderText(null);
 
-        if (bluePlayerTurn) {
+        if (!bluePlayerTurn) {
             alert.setContentText("Green won the game!");
         } else {
             alert.setContentText("Blue won the game!");
@@ -262,75 +320,5 @@ public class SequencePane extends BorderPane {
 
     public boolean isBluesTurn() {
         return bluePlayerTurn;
-    }
-
-    private boolean checkRow(int r) {
-        int cnt = 0;
-
-        for (int i = 0; i < 10; i++) {
-
-            Tile thisTile = boardLayout.getTile(r, i);
-
-            if (!thisTile.hasPiece()) {
-                cnt = 0;
-                continue;
-            }
-
-            PieceType thisType = (thisTile.getPiece()).getType();
-
-            if (!bluePlayerTurn) {
-                if (thisType.equals(PieceType.GREEN) || thisType.equals(PieceType.BOTH)) {
-                    cnt++;
-                } else {
-                    cnt = 0;
-                }
-            } else {
-                if (thisType.equals(PieceType.BLUE) || thisType.equals(PieceType.BOTH)) {
-                    cnt++;
-                } else {
-                    cnt = 0;
-                }
-            }
-
-            if (cnt == 5) {
-                break;
-            }
-        }
-        return cnt >= 5;
-    }
-
-    private boolean checkCol(int c) {
-        int cnt = 0;
-
-        for (int i = 0; i < 10; i++) {
-
-            Tile thisTile = boardLayout.getTile(i, c);
-
-            if (!thisTile.hasPiece()) {
-                cnt = 0;
-                continue;
-            }
-
-            PieceType thisType = (thisTile.getPiece()).getType();
-
-            if (!bluePlayerTurn) {
-                if (thisType.equals(PieceType.GREEN) || thisType.equals(PieceType.BOTH)) {
-                    cnt++;
-                } else {
-                    cnt = 0;
-                }
-            } else {
-                if (thisType.equals(PieceType.BLUE) || thisType.equals(PieceType.BOTH)) {
-                    cnt++;
-                } else {
-                    cnt = 0;
-                }
-            }
-
-            if (cnt == 5) {
-                break;
-            }
-        }
-        return cnt >= 5;
     }
 }

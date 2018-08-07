@@ -90,7 +90,7 @@ public class BoardPane extends GridPane {
                             if (!thisTile.hasPiece()) {
                                 success = true;
                                 thisTile.addPiece(sp.isBluesTurn() ? PieceType.BLUE : PieceType.GREEN);
-                                //SequencePane.checkBoard(item);
+                                sp.checkBoard(item);
                             }
                         }
                     }
