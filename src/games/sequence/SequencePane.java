@@ -76,20 +76,6 @@ public class SequencePane extends BorderPane {
         FadeTransition ft = new FadeTransition(Duration.millis(500), boardLayout);
         ft.setFromValue(0);
         ft.setToValue(1);
-
-        for (Piece p : bluePlayer.piecePile) {
-            p.setCenterX(getWidth() / 2);
-            getChildren().add(p);
-            p.setTranslateX(BLUE_PILE_X + Math.random() * 80);
-            p.setTranslateY(PILE_Y + Math.random() * 80);
-        }
-
-        for (Piece p : greenPlayer.piecePile) {
-            p.setCenterX(getWidth() / 2);
-            getChildren().add(p);
-            p.setTranslateX(GREEN_PILE_X + Math.random() * 80);
-            p.setTranslateY(PILE_Y + Math.random() * 80);
-        }
         ft.play();
     }
 
