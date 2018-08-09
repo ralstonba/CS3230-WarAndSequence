@@ -53,6 +53,7 @@ public class WarScreenController implements Initializable {
         Stage stage = (Stage) menuBar.getScene().getWindow();
         
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
     

@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.WarDescriptionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.views.WarDescriptionController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-image: url('file:/../resources/images/dscbg.jpg'); -fx-background-size: cover;" BorderPane.alignment="TOP_CENTER">
          <children>
             <TextArea editable="false" prefHeight="225.0" prefWidth="200.0" text="Rules:&#10;&#10;The deck is shuffled and dealed between the two players. Each round the players will place the top card from their pile face down onto the play area. With Ace being high, the cards are compared and the cards go to the player with the highest value. If the players cards are the same then three cards are discarded facedown from the top of the deck and then two cards are played face up with the winner taking the entire pile. &#10;&#10;How to play:&#10;&#10;At the beginning of a game click the deck to shuffle and deal the cards. From then on click in the play area to initiate a round." wrapText="true">
                <VBox.margin>
