@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -29,37 +30,33 @@ public class SequenceDescriptionController implements Initializable {
     private Button playButton;
 
     @FXML
-    private void handleMainMenuButton(ActionEvent event) throws IOException
-    {
-	Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-	Scene scene = new Scene(screen2Parent);
+    private void handleMainMenuButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene scene = new Scene(screen2Parent);
 
-	Stage stage = (Stage) playButton.getScene().getWindow();
+        Stage stage = (Stage) playButton.getScene().getWindow();
 
-	stage.setScene(scene);
-	stage.show();
-	stage.centerOnScreen();
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
     }
 
     @FXML
-    private void handlePlayButton(ActionEvent event) throws IOException
-    {
-	Parent screen2Parent = FXMLLoader.load(getClass().getResource("sequenceScreen.fxml"));
-	Scene scene = new Scene(screen2Parent);
+    private void handlePlayButton(ActionEvent event) throws IOException {
+        Parent screen2Parent = FXMLLoader.load(getClass().getResource("sequenceScreen.fxml"));
+        Scene scene = new Scene(screen2Parent);
 
-	Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-	stage.setScene(scene);
-	stage.show();
-	stage.centerOnScreen();
-        //stage.setFullScreen(true);
-	stage.setMaximized(true);
+        stage.setFullScreenExitHint("");
+        stage.setScene(scene);
+        stage.show();
+        stage.setFullScreen(true);
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-	// TODO
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
 
 }
