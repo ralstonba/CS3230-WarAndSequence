@@ -8,7 +8,6 @@ package games.views;
 import games.war.WarGamePane;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

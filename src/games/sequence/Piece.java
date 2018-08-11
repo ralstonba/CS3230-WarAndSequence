@@ -2,7 +2,6 @@ package games.sequence;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 
 /**

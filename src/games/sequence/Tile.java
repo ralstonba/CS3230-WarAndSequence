@@ -1,6 +1,5 @@
 package games.sequence;
 
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
 /**
