@@ -47,10 +47,9 @@ public class SequenceDescriptionController implements Initializable {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        stage.setFullScreenExitHint("");
         stage.setScene(scene);
+	stage.setMaximized(true);
         stage.show();
-        stage.setFullScreen(true);
     }
 
     @Override
